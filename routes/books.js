@@ -39,17 +39,6 @@ router.get(
 
 // future to do- findandcountall https://sequelize.org/master/manual/model-querying-finders.html
 
-// Search Results
-router.get(
-  "/search/",
-  asyncHandler(async (req, res) => {
-    const url = req.url;
-    const search = url.toLowerCase().substring(16);
-    const books = await Book.findAll({ order: [["id", "DESC"]] });
-    res.render("books/search", { books, search });
-  })
-);
-
 /* create new book */
 router.get(
   "/new",
@@ -112,7 +101,7 @@ router.post(
           title: "Update Book",
         });
       } else {
-        res.render("error");
+        res.sendStatus(404);
       }
     }
   })
@@ -126,7 +115,7 @@ router.get(
     if (book) {
       res.render("books/delete", { book, title: book.title });
     } else {
-      res.render("error");
+      res.sendStatus(404);
     }
   })
 );
@@ -140,7 +129,7 @@ router.post(
       await book.destroy();
       res.redirect("/books");
     } else {
-      res.render("error");
+      res.sendStatus(404);
     }
   })
 );

@@ -1,6 +1,5 @@
- 
 if(errors)
-    h2.error Oops an error occurred!
-    ul.error
-      li Value For Title and Author required 
-      
+  h2.errors Oops an error occurred!
+  ul.errors
+    each error in errors
+      li=error.message
